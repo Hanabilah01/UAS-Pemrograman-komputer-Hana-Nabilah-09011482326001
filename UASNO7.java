@@ -1,19 +1,21 @@
-import java.util.ArrayList;
+import java.util.Scanner;
 
-class Buku {
+public class UASNO7 {
     private String judul;
     private String penulis;
     private int tahunTerbit;
     private boolean dipinjam;
 
-    public Buku(String judul, String penulis, int tahunTerbit) {
+    // Konstruktor untuk inisialisasi atribut buku
+    public UASNO7(String judul, String penulis, int tahunTerbit) {
         this.judul = judul;
         this.penulis = penulis;
         this.tahunTerbit = tahunTerbit;
-        this.dipinjam = false;
+        this.dipinjam = false; // Awalnya buku tidak dipinjam
     }
 
-    public void tampilkanInformasi() {
+    // Metode untuk menampilkan informasi buku
+    public void tampilkanInfo() {
         System.out.println("Judul: " + judul);
         System.out.println("Penulis: " + penulis);
         System.out.println("Tahun Terbit: " + tahunTerbit);
@@ -21,89 +23,38 @@ class Buku {
         System.out.println();
     }
 
-    public boolean isDipinjam() {
-        return dipinjam;
-    }
-
+    // Metode untuk meminjam buku
     public void pinjamBuku() {
-        if (!dipinjam) {
-            dipinjam = true;
-            System.out.println("Buku berhasil dipinjam.");
-        } else {
-            System.out.println("Buku sedang dipinjam oleh orang lain.");
-        }
-    }
-
-    public void kembalikanBuku() {
         if (dipinjam) {
-            dipinjam = false;
-            System.out.println("Buku berhasil dikembalikan.");
+            System.out.println("Buku ini sudah dipinjam.");
         } else {
-            System.out.println("Buku sudah tersedia di perpustakaan.");
+            System.out.println("Anda berhasil meminjam buku.");
+            dipinjam = true;
         }
     }
 
-    public String getJudul() {
-        return null;
-    }
-}
-
-class Perpustakaan {
-    private ArrayList<Buku> daftarBuku;
-
-    public Perpustakaan() {
-        this.daftarBuku = new ArrayList<>();
-    }
-
-    public void tambahBuku(Buku buku) {
-        daftarBuku.add(buku);
-    }
-
-    public void tampilkanDaftarBuku() {
-        System.out.println("Daftar Buku dalam Perpustakaan:");
-        for (Buku buku : daftarBuku) {
-            buku.tampilkanInformasi();
-        }
-    }
-
-    public Buku cariBuku(String judul) {
-        for (Buku buku : daftarBuku) {
-            if (buku.getJudul().equalsIgnoreCase(judul)) {
-                return buku;
-            }
-        }
-        return null;
-    }
-}
-
-public class UASNO7 {
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
-        Perpustakaan perpustakaan = new Perpustakaan();
+        // Membuat objek buku
+        UASNO7 buku1 = new UASNO7("Introduction to AI", "Robert Williams", 2022);
+        UASNO7 buku2 = new UASNO7("Database Management", "Emily Davis", 2018);
 
-        // Menambahkan buku ke perpustakaan
-        Buku buku1 = new Buku("Java Programming", "John Doe", 2020);
-        Buku buku2 = new Buku("Python Basics", "Jane Smith", 2018);
-        perpustakaan.tambahBuku(buku1);
-        perpustakaan.tambahBuku(buku2);
-
-        // Menampilkan daftar buku
-        perpustakaan.tampilkanDaftarBuku();
+        // Menampilkan informasi buku sebelum dipinjam
+        System.out.println("Informasi Buku Sebelum Dipinjam:");
+        buku1.tampilkanInfo();
+        buku2.tampilkanInfo();
 
         // Meminjam buku
-        Buku bukuDipinjam = perpustakaan.cariBuku("Java Programming");
-        if (bukuDipinjam != null) {
-            bukuDipinjam.pinjamBuku();
-        }
+        buku1.pinjamBuku();
+        buku2.pinjamBuku();
 
-        // Menampilkan daftar buku setelah dipinjam
-        perpustakaan.tampilkanDaftarBuku();
+        // Menampilkan informasi buku setelah dipinjam
+        System.out.println("Informasi Buku Setelah Dipinjam:");
+        buku1.tampilkanInfo();
+        buku2.tampilkanInfo();
 
-        // Mengembalikan buku
-        if (bukuDipinjam != null) {
-            bukuDipinjam.kembalikanBuku();
-        }
+}
 
-        // Menampilkan daftar buku setelah dikembalikan
-        perpustakaan.tampilkanDaftarBuku();
-    }
 }
